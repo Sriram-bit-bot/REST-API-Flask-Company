@@ -35,9 +35,9 @@ class Employee(Resource):
 
     def post(self, name):
         data =Employee.Parser.parse_args()
-        price =data['salary']
+        salary =data['salary']
         employee ={ "name":name,
-                "price":price}
+                "salary":salary}
         employees.append(employee)
         return employee,200
 
