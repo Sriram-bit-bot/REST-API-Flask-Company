@@ -18,11 +18,11 @@ def create_tables():
     db.create_all()
 
 
-api.add_resource(Employee, '/employee/<int:_id>')
+api.add_resource(Employee, '/employee/<int:emp_id>')
 api.add_resource(Employees, '/employees')
 api.add_resource(AdminResource, '/register')
 
 if __name__ == "__main__":
     from db import db
     db.init_app(app)
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5000)  
