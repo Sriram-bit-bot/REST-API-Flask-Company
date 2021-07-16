@@ -4,6 +4,7 @@ from flask_jwt import JWT
 from security import authenticate, identity
 from resources.admin import AdminResource
 from resources.employee import Employee, Employees
+from resources.branch import Branch,Branches
 
 app =Flask(__name__)
 app.secret_key ='e869d610efc6ad9acf45ee57797a48d3'
@@ -21,6 +22,8 @@ def create_tables():
 api.add_resource(Employee, '/employee/<int:emp_id>')
 api.add_resource(Employees, '/employees')
 api.add_resource(AdminResource, '/register')
+api.add_resource(Branch ,'/branch/<int:branch_id>')
+api.add_resource(Branches ,'/branches')
 
 if __name__ == "__main__":
     from db import db

@@ -5,7 +5,6 @@ class EmployeeModel(db.Model):
     emp_id =db.Column(db.Integer, primary_key=True)
     first_name =db.Column(db.String(30))
     last_name =db.Column(db.String(30))
-    dob =db.Column(db.DateTime)
     sex =db.Column(db.String(1))
     super_id =db.Column(db.Integer)
     salary =db.Column(db.Integer)
