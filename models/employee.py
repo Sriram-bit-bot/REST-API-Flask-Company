@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref
 from db import db
 
 class EmployeeModel(db.Model):
@@ -9,13 +10,17 @@ class EmployeeModel(db.Model):
     super_id =db.Column(db.Integer)
     salary =db.Column(db.Integer)
 
-    def __init__(self, emp_id,fname,lname,sex,super_id, salary):
+    branch_id =db.Column(db.Integer, db.ForeignKey('branch.branch_id'))
+    branch =db.relationship('BranchModel')
+
+    def __init__(self, emp_id,fname,lname,sex,super_id, salary,branch_id):
         self.emp_id =emp_id
         self.first_name =fname
         self.last_name =lname
         self.sex =sex
         self.super_id =super_id
         self.salary =salary
+        self.branch_id =branch_id
     
     @classmethod
     def find_employee(cls,emp_id):
@@ -36,6 +41,7 @@ class EmployeeModel(db.Model):
         employee.sex =self.sex
         employee.super_id =self.super_id
         employee.salary =self.salary
+        employee.branch_id =self.branch_id
         db.session.commit()
     
     def convert_to_dict(self):
@@ -45,9 +51,10 @@ class EmployeeModel(db.Model):
             "last_name":self.last_name,
             "sex":self.sex,
             "supervisor_id":self.super_id,
-            "salary":self.salary
+            "salary":self.salary,
+            "branch_id":self.branch_id
         }
     @classmethod
     def convert_to_obj(cls,my_id,my_dict):
         return EmployeeModel(my_id,my_dict['first_name'],my_dict['last_name'],
-                    my_dict['sex'],my_dict['super_id'],my_dict['salary'])
+                    my_dict['sex'],my_dict['super_id'],my_dict['salary'],my_dict['branch_id'])

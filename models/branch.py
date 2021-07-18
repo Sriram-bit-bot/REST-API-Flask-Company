@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref, lazyload
 from db import db
 
 class BranchModel(db.Model):
@@ -6,7 +7,8 @@ class BranchModel(db.Model):
     branch_name =db.Column(db.String(25))
     mgr_id =db.Column(db.Integer)
     branch_index =db.Column(db.Float(precision =2))
-
+    employees =db.relationship('EmployeeModel',lazy='dynamic')
+    
     def __init__(self,branch_id,branch_name,mgr_id,branch_index):
         self.branch_id =branch_id
         self.branch_name =branch_name
@@ -37,7 +39,9 @@ class BranchModel(db.Model):
             'branch_id':self.branch_id,
             'branch_name':self.branch_name,
             'mgr_id':self.mgr_id,
-            'branch_index':self.branch_index
+            'branch_index':self.branch_index,
+            'Employees':
+               [{'Name':x.first_name,'Id':x.emp_id} for x in self.employees.all()]
         }
         
 

@@ -30,7 +30,11 @@ class Employee(Resource):
         required =True,
         help ='Date of birth is required'
     )
-
+    Parser.add_argument('branch_id',
+        type =int,
+        required =True,
+        help ="Branch ID is required"
+    )
     def get(self,emp_id):
         employee =EmployeeModel.find_employee(emp_id)
         if employee is None:
